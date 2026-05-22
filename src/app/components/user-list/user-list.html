@@ -74,7 +74,7 @@
         </ng-template>
       }
 
-      <!-- Table — NO built-in pagination to avoid nz-select overlay leaks -->
+      <!-- Table -->
       @if (!loading && displayUsers.length > 0) {
         <nz-table
           [nzData]="displayUsers"
@@ -130,7 +130,7 @@
           </tbody>
         </nz-table>
 
-        <!-- Custom pagination — no nz-select, no overlay leaks -->
+        <!-- Custom pagination -->
         <div class="pagination-bar">
           <nz-pagination
             [nzTotal]="total"
