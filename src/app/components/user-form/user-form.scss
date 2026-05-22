@@ -3,7 +3,6 @@
   .back-link { margin-bottom: 16px; }
 }
 
-/* ── Custom fields (no nz-form-control) ── */
 .field-wrap {
   display: flex;
   flex-direction: column;
@@ -22,7 +21,6 @@
   }
 }
 
-/* Red border on invalid touched input */
 .field-invalid.ant-input {
   border-color: #ff4d4f !important;
   box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.15) !important;
@@ -33,7 +31,6 @@
   }
 }
 
-/* Single error line — Angular @if guarantees exactly one */
 .field-error {
   font-size: 13px;
   color: #ff4d4f;
