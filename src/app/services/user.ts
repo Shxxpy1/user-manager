@@ -20,8 +20,7 @@ export interface User {
   };
 }
 
-// Single source of truth — all users are Russian from the start.
-// IDs 1-10 mirror JSONPlaceholder IDs so PUT/DELETE still work against real API.
+
 const ALL_USERS: User[] = [
   { id: 1,   name: 'Алексей Смирнов',    username: 'smirnov_a',    email: 'smirnov@yandex.ru',      phone: '+7-916-123-45-67', website: 'smirnov.ru',      company: { name: 'ООО «Альфа»' },          address: { street: 'ул. Тверская',           suite: 'кв. 12',  city: 'Москва',            zipcode: '125009' } },
   { id: 2,   name: 'Екатерина Попова',   username: 'popova_e',     email: 'popova@mail.ru',          phone: '+7-812-234-56-78', website: 'popova.spb.ru',   company: { name: 'АО «Балтика»' },         address: { street: 'Невский пр.',             suite: 'оф. 301', city: 'Санкт-Петербург',   zipcode: '191186' } },
