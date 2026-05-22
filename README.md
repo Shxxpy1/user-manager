@@ -4,9 +4,8 @@
 
 ## 🚀 Демо
 
-**[https://ВАШ_ЛОГИН.github.io/user-manager/](https://ВАШ_ЛОГИН.github.io/user-manager/)**
+**[https://Shxxpy1.github.io/user-manager/](https://Shxxpy1.github.io/user-manager/)**
 
-> Замените ссылку на реальную после деплоя.
 
 ## ✨ Функциональность
 
