@@ -20,7 +20,6 @@ import { UserService } from '../../services/user';
     NzCardModule, NzInputModule,
     NzButtonModule, NzIconModule, NzSkeletonModule,
     NzGridModule, NzAlertModule,
-    // NzFormModule intentionally removed — we render errors manually
   ],
   templateUrl: './user-form.html',
   styleUrls: ['./user-form.scss']
@@ -76,7 +75,6 @@ export class UserFormComponent implements OnInit {
     }
   }
 
-  /** True when field is invalid AND touched — controls error visibility */
   isTouched(field: string): boolean {
     const c = this.form.get(field);
     return !!(c && c.invalid && c.touched);
