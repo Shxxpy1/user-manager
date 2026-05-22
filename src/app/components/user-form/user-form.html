@@ -1,0 +1,112 @@
+<div class="form-page">
+  <div class="back-link">
+    <button nz-button [routerLink]="['/users']">
+      <span nz-icon nzType="arrow-left"></span> Назад к списку
+    </button>
+  </div>
+
+  <nz-card [nzTitle]="isEdit ? 'Редактировать пользователя' : 'Создать пользователя'">
+
+    @if (loading) {
+      <nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 8 }"></nz-skeleton>
+    }
+
+    @if (!loading) {
+      @if (submitError) {
+        <nz-alert nzType="error" [nzMessage]="submitError" nzShowIcon nzCloseable
+          (nzOnClose)="submitError = null" style="margin-bottom: 20px">
+        </nz-alert>
+      }
+
+      <form nz-form [formGroup]="form" (ngSubmit)="submit()" nzLayout="vertical">
+        <div nz-row [nzGutter]="16">
+
+          <div nz-col [nzSpan]="12">
+            <div class="field-wrap">
+              <label class="field-label required">Полное имя</label>
+              <input nz-input formControlName="name" placeholder="Иван Иванов"
+                [class.field-invalid]="isTouched('name')" />
+              @if (isTouched('name')) {
+                @if (f['name'].hasError('required')) {
+                  <span class="field-error">Имя обязательно</span>
+                } @else if (f['name'].hasError('minlength')) {
+                  <span class="field-error">Минимум 2 символа</span>
+                }
+              }
+            </div>
+          </div>
+
+          <div nz-col [nzSpan]="12">
+            <div class="field-wrap">
+              <label class="field-label required">Имя пользователя</label>
+              <input nz-input formControlName="username" placeholder="ivanov"
+                [class.field-invalid]="isTouched('username')" />
+              @if (isTouched('username') && f['username'].hasError('required')) {
+                <span class="field-error">Имя пользователя обязательно</span>
+              }
+            </div>
+          </div>
+
+          <div nz-col [nzSpan]="12">
+            <div class="field-wrap">
+              <label class="field-label required">Email</label>
+              <input nz-input formControlName="email" placeholder="ivan@example.com"
+                [class.field-invalid]="isTouched('email')" />
+              @if (isTouched('email')) {
+                @if (f['email'].hasError('required')) {
+                  <span class="field-error">Email обязателен</span>
+                } @else if (f['email'].hasError('email')) {
+                  <span class="field-error">Неверный формат email</span>
+                }
+              }
+            </div>
+          </div>
+
+          <div nz-col [nzSpan]="12">
+            <div class="field-wrap">
+              <label class="field-label">Телефон</label>
+              <input nz-input formControlName="phone" placeholder="+7-900-000-00-00" />
+            </div>
+          </div>
+
+          <div nz-col [nzSpan]="12">
+            <div class="field-wrap">
+              <label class="field-label">Сайт</label>
+              <input nz-input formControlName="website" placeholder="example.ru" />
+            </div>
+          </div>
+
+          <div nz-col [nzSpan]="12">
+            <div class="field-wrap">
+              <label class="field-label">Компания</label>
+              <input nz-input formControlName="companyName" placeholder="ООО «Пример»" />
+            </div>
+          </div>
+
+          <div nz-col [nzSpan]="12">
+            <div class="field-wrap">
+              <label class="field-label">Улица</label>
+              <input nz-input formControlName="street" placeholder="ул. Ленина, 1" />
+            </div>
+          </div>
+
+          <div nz-col [nzSpan]="12">
+            <div class="field-wrap">
+              <label class="field-label">Город</label>
+              <input nz-input formControlName="city" placeholder="Москва" />
+            </div>
+          </div>
+
+        </div>
+
+        <div class="form-actions">
+          <button nz-button type="button" [routerLink]="['/users']">Отмена</button>
+          <button nz-button nzType="primary" type="submit" [nzLoading]="submitting">
+            <span nz-icon [nzType]="isEdit ? 'save' : 'plus'"></span>
+            {{ isEdit ? 'Сохранить изменения' : 'Создать пользователя' }}
+          </button>
+        </div>
+      </form>
+    }
+  </nz-card>
+</div>

@@ -1,0 +1,387 @@
+@import 'ng-zorro-antd/ng-zorro-antd.min.css';
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ═══════════════════════════════
+   LIGHT THEME
+   ═══════════════════════════════ */
+:root, [data-theme="light"] {
+  --bg-base:          #f5f6fa;
+  --bg-card:          #ffffff;
+  --bg-header-row:    #fafbfc;
+  --bg-row-hover:     #f8f9ff;
+  --bg-input:         #ffffff;
+  --border:           #eaecf0;
+  --border-input:     #d9dde8;
+  --text-primary:     #1a1d2e;
+  --text-secondary:   #6b7280;
+  --text-head:        #374151;
+  --shadow-sm:        0 1px 4px rgba(0,0,0,0.06);
+  --shadow-md:        0 4px 16px rgba(0,0,0,0.08);
+  --shadow-lg:        0 8px 32px rgba(0,0,0,0.10);
+  --radius-card:      16px;
+  --radius-btn:       10px;
+  --radius-input:     10px;
+  --accent:           #4f6ef7;
+}
+
+/* ═══════════════════════════════
+   DARK THEME — soft, warm-dark
+   ═══════════════════════════════ */
+[data-theme="dark"] {
+  --bg-base:          #0f1117;
+  --bg-card:          #181c27;
+  --bg-header-row:    #1e2233;
+  --bg-row-hover:     #1e2438;
+  --bg-input:         #1e2233;
+  --border:           #2a2f45;
+  --border-input:     #2e3450;
+  --text-primary:     #e8eaf0;
+  --text-secondary:   #8b93b0;
+  --text-head:        #a8b0cc;
+  --shadow-sm:        0 1px 4px rgba(0,0,0,0.3);
+  --shadow-md:        0 4px 16px rgba(0,0,0,0.4);
+  --shadow-lg:        0 8px 32px rgba(0,0,0,0.5);
+  --accent:           #5b7cfa;
+}
+
+/* ═══════════════════════════════
+   GLOBAL ANT DESIGN OVERRIDES
+   ═══════════════════════════════ */
+
+/* ── Cards ── */
+.ant-card {
+  background: var(--bg-card) !important;
+  border: 1.5px solid var(--border) !important;
+  border-radius: var(--radius-card) !important;
+  box-shadow: var(--shadow-md) !important;
+  transition: box-shadow 0.25s, background 0.25s, border-color 0.25s !important;
+  color: var(--text-primary) !important;
+  &:hover { box-shadow: var(--shadow-lg) !important; }
+}
+.ant-card-head {
+  background: var(--bg-card) !important;
+  border-bottom: 1px solid var(--border) !important;
+  border-radius: var(--radius-card) var(--radius-card) 0 0 !important;
+  color: var(--text-primary) !important;
+}
+.ant-card-head-title { color: var(--text-primary) !important; }
+.ant-card-body { color: var(--text-primary) !important; }
+
+/* ── Typography ── */
+h1, h2, h3, h4, h5, h6, p,
+.ant-typography { color: var(--text-primary) !important; }
+
+/* ── Table ── */
+.ant-table-wrapper {
+  border-radius: 0 0 calc(var(--radius-card) - 2px) calc(var(--radius-card) - 2px) !important;
+  overflow: hidden !important;
+  /* remove white border/outline */
+  border: none !important;
+  box-shadow: none !important;
+}
+.ant-table {
+  background: var(--bg-card) !important;
+  color: var(--text-primary) !important;
+  border: none !important;
+}
+.ant-table-container {
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  &::before, &::after { display: none !important; }
+}
+.ant-table-thead > tr > th {
+  background: var(--bg-header-row) !important;
+  color: var(--text-head) !important;
+  border-bottom: 1px solid var(--border) !important;
+  border-right: none !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  letter-spacing: 0.02em !important;
+  &::before { display: none !important; } /* removes column separators */
+}
+.ant-table-tbody > tr > td {
+  background: var(--bg-card) !important;
+  border-bottom: 1px solid var(--border) !important;
+  border-right: none !important;
+  color: var(--text-primary) !important;
+  transition: background 0.15s !important;
+}
+.ant-table-tbody > tr:last-child > td { border-bottom: none !important; }
+.ant-table-tbody > tr:hover > td {
+  background: var(--bg-row-hover) !important;
+}
+
+/* ── Pagination ── */
+.ant-pagination {
+  padding: 16px 0 4px !important;
+}
+.ant-pagination-item {
+  background: var(--bg-card) !important;
+  border: 1.5px solid var(--border) !important;
+  border-radius: 8px !important;
+  transition: all 0.2s !important;
+
+  a {
+    color: var(--text-primary) !important;
+    font-weight: 500 !important;
+  }
+
+  &:hover {
+    border-color: var(--accent) !important;
+    a { color: var(--accent) !important; }
+  }
+}
+.ant-pagination-item-active {
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
+  a { color: #fff !important; }
+}
+.ant-pagination-prev .ant-pagination-item-link,
+.ant-pagination-next .ant-pagination-item-link {
+  background: var(--bg-card) !important;
+  border: 1.5px solid var(--border) !important;
+  border-radius: 8px !important;
+  color: var(--text-primary) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  &:hover {
+    border-color: var(--accent) !important;
+    color: var(--accent) !important;
+  }
+}
+.ant-pagination-disabled .ant-pagination-item-link {
+  color: var(--text-secondary) !important;
+  opacity: 0.5 !important;
+}
+.ant-pagination-options { }
+.ant-select-selector {
+  background: var(--bg-input) !important;
+  border: 1.5px solid var(--border-input) !important;
+  border-radius: 8px !important;
+  color: var(--text-primary) !important;
+}
+.ant-select-arrow { color: var(--text-secondary) !important; }
+.ant-select-dropdown {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+.ant-select-item {
+  color: var(--text-primary) !important;
+  border-radius: 8px !important;
+  &:hover { background: var(--bg-row-hover) !important; }
+}
+.ant-select-item-option-selected {
+  background: color-mix(in srgb, var(--accent) 15%, transparent) !important;
+  color: var(--accent) !important;
+  font-weight: 600 !important;
+}
+
+/* ── Buttons ── */
+.ant-btn {
+  border-radius: var(--radius-btn) !important;
+  font-weight: 500 !important;
+  transition: all 0.2s !important;
+  border-color: var(--border-input) !important;
+  color: var(--text-primary) !important;
+  background: var(--bg-card) !important;
+
+  &.ant-btn-primary {
+    background: var(--accent) !important;
+    border-color: var(--accent) !important;
+    color: #fff !important;
+    &:hover { opacity: 0.88 !important; }
+  }
+  &.ant-btn-dangerous {
+    background: transparent !important;
+    border-color: #ff4d4f !important;
+    color: #ff4d4f !important;
+    &:hover { background: rgba(255,77,79,0.08) !important; }
+  }
+  &[disabled] { opacity: 0.4 !important; }
+}
+
+/* ── Inputs ── */
+.ant-input,
+.ant-input-affix-wrapper {
+  background: var(--bg-input) !important;
+  border: 1.5px solid var(--border-input) !important;
+  border-radius: var(--radius-input) !important;
+  color: var(--text-primary) !important;
+  transition: border-color 0.2s, box-shadow 0.2s !important;
+
+  &:focus, &-focused {
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent) !important;
+  }
+  input { color: var(--text-primary) !important; background: transparent !important; }
+  &::placeholder, input::placeholder { color: var(--text-secondary) !important; }
+  .ant-input-prefix { color: var(--text-secondary) !important; }
+}
+
+/* ── Form labels ── */
+.ant-form-item-label > label {
+  color: var(--text-primary) !important;
+  font-weight: 500 !important;
+}
+
+/* ── Descriptions ── */
+.ant-descriptions-title { color: var(--text-primary) !important; font-weight: 600 !important; }
+.ant-descriptions-bordered {
+  border: 1px solid var(--border) !important;
+  border-radius: 10px !important;
+  overflow: hidden !important;
+}
+.ant-descriptions-bordered .ant-descriptions-item-label {
+  background: var(--bg-header-row) !important;
+  color: var(--text-secondary) !important;
+  border-right: 1px solid var(--border) !important;
+  border-bottom: 1px solid var(--border) !important;
+  font-weight: 500 !important;
+}
+.ant-descriptions-bordered .ant-descriptions-item-content {
+  background: var(--bg-card) !important;
+  color: var(--text-primary) !important;
+  border-bottom: 1px solid var(--border) !important;
+}
+.ant-descriptions-row:last-child {
+  .ant-descriptions-item-label,
+  .ant-descriptions-item-content { border-bottom: none !important; }
+}
+
+/* ── Tags ── */
+.ant-tag {
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+}
+
+/* ── Alert ── */
+.ant-alert {
+  border-radius: 12px !important;
+  background: var(--bg-header-row) !important;
+  border-color: var(--border) !important;
+  .ant-alert-message { color: var(--text-primary) !important; }
+  .ant-alert-description { color: var(--text-secondary) !important; }
+}
+.ant-alert-error {
+  background: color-mix(in srgb, #ff4d4f 8%, var(--bg-card)) !important;
+  border-color: rgba(255,77,79,0.3) !important;
+}
+
+/* ── Popconfirm / Tooltip ── */
+.ant-popover-inner {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+.ant-popover-message-title, .ant-popover-message { color: var(--text-primary) !important; }
+.ant-tooltip-inner {
+  background: var(--bg-header-row) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 8px !important;
+}
+
+/* ── Result page ── */
+.ant-result-title   { color: var(--text-primary) !important; }
+.ant-result-subtitle { color: var(--text-secondary) !important; }
+
+/* ── Empty ── */
+.ant-empty-description { color: var(--text-secondary) !important; }
+
+/* ── Skeleton ── */
+.ant-skeleton-element .ant-skeleton-button,
+.ant-skeleton-element .ant-skeleton-avatar {
+  background: linear-gradient(90deg,
+    var(--bg-header-row) 25%,
+    var(--border) 37%,
+    var(--bg-header-row) 63%) !important;
+  background-size: 400% 100% !important;
+}
+.ant-skeleton-paragraph li,
+.ant-skeleton-title {
+  background: linear-gradient(90deg,
+    var(--bg-header-row) 25%,
+    var(--border) 37%,
+    var(--bg-header-row) 63%) !important;
+  background-size: 400% 100% !important;
+  border-radius: 6px !important;
+}
+
+/* ── Layout ── */
+.ant-layout { background: var(--bg-base) !important; }
+.ant-layout-content { background: var(--bg-base) !important; }
+.ant-layout-footer {
+  background: var(--bg-base) !important;
+  color: var(--text-secondary) !important;
+  transition: background 0.25s, color 0.25s !important;
+}
+
+/* ── Message toast ── */
+.ant-message-notice-content {
+  background: var(--bg-card) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+/* ═══════════════════════════════
+   PAGE ANIMATION
+   ═══════════════════════════════ */
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Extra fixes ── */
+
+/* Remove ALL inner vertical lines from descriptions */
+.ant-descriptions-bordered td,
+.ant-descriptions-bordered th {
+  border-right: none !important;
+}
+.ant-descriptions-bordered .ant-descriptions-row {
+  border-bottom: 1px solid var(--border) !important;
+}
+.ant-descriptions-bordered .ant-descriptions-row:last-child {
+  border-bottom: none !important;
+}
+
+/* Ensure table wrapper has no outline in either theme */
+.ant-spin-nested-loading,
+.ant-spin-container,
+.ant-table-wrapper,
+.ant-table-container,
+.ant-table {
+  border: none !important;
+  outline: none !important;
+}
+
+/* Fix page size dropdown in light theme */
+[data-theme="light"] {
+  .ant-select-dropdown {
+    background: #fff !important;
+    border: 1px solid #eaecf0 !important;
+  }
+  .ant-select-item { color: #1a1d2e !important; }
+  .ant-select-item:hover { background: #f5f6fa !important; }
+  .ant-select-item-option-selected {
+    background: rgba(79,110,247,0.1) !important;
+    color: #4f6ef7 !important;
+  }
+}
+
+/* ── Ensure destroyed tooltip overlays don't linger ── */
+.ant-tooltip { pointer-events: none; }

@@ -1,0 +1,158 @@
+<div class="list-page">
+  @if (loadError) {
+    <nz-alert
+      nzType="error"
+      [nzMessage]="'Не удалось загрузить список пользователей'"
+      [nzDescription]="loadError"
+      nzShowIcon
+      class="load-error">
+    </nz-alert>
+    <div class="retry-wrap">
+      <button nz-button nzType="primary" (click)="loadUsers()">
+        <span nz-icon nzType="reload"></span> Повторить попытку
+      </button>
+    </div>
+  }
+
+  @if (!loadError) {
+    <nz-card>
+      <div class="list-header">
+        <h2 nz-typography>Пользователи</h2>
+        <div class="actions">
+          <nz-input-group [nzPrefix]="searchIcon" class="search-input">
+            <input nz-input placeholder="Поиск по имени или email..."
+              [(ngModel)]="searchText" (ngModelChange)="onSearch()" [disabled]="loading" />
+          </nz-input-group>
+          <ng-template #searchIcon><span nz-icon nzType="search"></span></ng-template>
+          <button nz-button nzType="primary" [routerLink]="['/users/new']">
+            <span nz-icon nzType="plus"></span> Новый пользователь
+          </button>
+        </div>
+      </div>
+
+      <!-- Skeleton -->
+      @if (loading) {
+        <table class="skeleton-table">
+          <thead>
+            <tr><th>Имя</th><th>Email</th><th>Телефон</th><th>Компания</th><th>Действия</th></tr>
+          </thead>
+          <tbody>
+            @for (row of skeletonRows; track $index) {
+              <tr>
+                <td><nz-skeleton-element nzType="button" [nzActive]="true" nzSize="small" nzShape="round"></nz-skeleton-element></td>
+                <td><nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 1, width: '80%' }" [nzTitle]="false"></nz-skeleton></td>
+                <td><nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 1, width: '60%' }" [nzTitle]="false"></nz-skeleton></td>
+                <td><nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 1, width: '70%' }" [nzTitle]="false"></nz-skeleton></td>
+                <td><nz-skeleton-element nzType="button" [nzActive]="true" nzSize="small"></nz-skeleton-element></td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+
+      <!-- Empty states -->
+      @if (isListEmpty) {
+        <nz-empty nzNotFoundImage="simple" nzNotFoundContent="Пользователей пока нет"
+          [nzNotFoundFooter]="emptyFooter">
+        </nz-empty>
+        <ng-template #emptyFooter>
+          <button nz-button nzType="primary" [routerLink]="['/users/new']">
+            <span nz-icon nzType="plus"></span> Создать первого пользователя
+          </button>
+        </ng-template>
+      }
+
+      @if (isSearchEmpty) {
+        <nz-empty nzNotFoundImage="simple"
+          [nzNotFoundContent]="'По запросу «' + searchText + '» ничего не найдено'"
+          [nzNotFoundFooter]="searchEmptyFooter">
+        </nz-empty>
+        <ng-template #searchEmptyFooter>
+          <button nz-button (click)="searchText = ''; onSearch()">
+            <span nz-icon nzType="close-circle"></span> Сбросить поиск
+          </button>
+        </ng-template>
+      }
+
+      <!-- Table — NO built-in pagination to avoid nz-select overlay leaks -->
+      @if (!loading && displayUsers.length > 0) {
+        <nz-table
+          [nzData]="displayUsers"
+          [nzFrontPagination]="false"
+          [nzShowPagination]="false"
+          nzBordered
+          class="users-table">
+          <thead>
+            <tr>
+              <th>Имя</th>
+              <th>Email</th>
+              <th>Телефон</th>
+              <th>Компания</th>
+              <th>Действия</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (user of displayUsers; track user.id; let i = $index) {
+              <tr class="table-row">
+                <td>
+                  <nz-tag [nzColor]="tagColor(i)">{{ user.name.charAt(0) }}</nz-tag>
+                  {{ user.name }}
+                </td>
+                <td><span nz-icon nzType="mail" nzTheme="outline"></span> {{ user.email }}</td>
+                <td>{{ user.phone }}</td>
+                <td>{{ user.company?.name }}</td>
+                <td>
+                  <div class="action-btns">
+                    <a class="action-btn view-btn" [routerLink]="['/users', user.id]" title="Просмотр">
+                      <span nz-icon nzType="eye"></span>
+                    </a>
+                    <a class="action-btn edit-btn" [routerLink]="['/users', user.id, 'edit']" title="Редактировать">
+                      <span nz-icon nzType="edit"></span>
+                    </a>
+                    <button class="action-btn delete-btn"
+                      [class.is-loading]="isDeleting(user.id!)"
+                      nz-popconfirm
+                      nzPopconfirmTitle="Удалить этого пользователя?"
+                      nzPopconfirmOkText="Удалить"
+                      nzPopconfirmCancelText="Отмена"
+                      (nzOnConfirm)="deleteUser(user.id!)"
+                      title="Удалить">
+                      @if (isDeleting(user.id!)) {
+                        <span nz-icon nzType="loading"></span>
+                      } @else {
+                        <span nz-icon nzType="delete"></span>
+                      }
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </nz-table>
+
+        <!-- Custom pagination — no nz-select, no overlay leaks -->
+        <div class="pagination-bar">
+          <nz-pagination
+            [nzTotal]="total"
+            [nzPageIndex]="pageIndex"
+            [nzPageSize]="pageSize"
+            [nzShowSizeChanger]="false"
+            [nzShowQuickJumper]="false"
+            (nzPageIndexChange)="onPageChange($event)">
+          </nz-pagination>
+          <div class="page-size-picker">
+            <span class="ps-label">Строк:</span>
+            @for (size of pageSizes; track size) {
+              <button
+                class="ps-btn"
+                [class.active]="pageSize === size"
+                (click)="onPageSizeChange(size)">
+                {{ size }}
+              </button>
+            }
+          </div>
+        </div>
+      }
+    </nz-card>
+  }
+</div>
