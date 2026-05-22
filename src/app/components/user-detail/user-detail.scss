@@ -67,7 +67,7 @@
   font-size: 13px;
   display: flex;
   align-items: center;
-  border-right: none; /* NO vertical separator lines */
+  border-right: none; 
 }
 
 .info-value {
@@ -79,7 +79,7 @@
   align-items: center;
   gap: 6px;
   word-break: break-word;
-  border-right: none; /* NO vertical separator lines */
+  border-right: none; 
 
   span[nz-icon] { color: var(--text-secondary); font-size: 13px; flex-shrink: 0; }
 }
