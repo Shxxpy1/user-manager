@@ -41,7 +41,7 @@ import { ThemeService } from './services/theme';
           <router-outlet />
         </div>
       </nz-content>
-      <nz-footer class="app-footer">User Manager © 2025</nz-footer>
+      <nz-footer class="app-footer">User Manager © 2026</nz-footer>
     </nz-layout>
   `,
   styleUrls: ['./app.scss']
